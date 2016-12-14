@@ -11,12 +11,13 @@ import com.sun.xml.internal.ws.api.message.Packet;
 public class ChatClient implements java.io.Serializable{
  private DatagramSocket s;
  private InetAddress hostAddress;
- private byte[] buf = new byte[1000];
+ private byte[] buf = new byte[3000];
  private int pport;
  private ArrayList<User> list=null;
  private DatagramPacket dp = new DatagramPacket(buf,buf.length);
  private InetAddress ahosAddress;
  private int iport;
+
 //方法说明：构造器，这里实现接收用户输入和与服务器通讯
   public ChatClient(){
    try{
@@ -47,7 +48,24 @@ public class ChatClient implements java.io.Serializable{
 		}
 	     //等待服务器返回}
 	   } 
-
+  
+  
+  
+  public void sendFile(byte b[],InetAddress address,int port ){
+	     byte[] buf = b;
+	     //打包数据，发送数据
+	     DatagramPacket out = new DatagramPacket(buf,buf.length,address,port);
+	     try {
+			s.send(out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	     //等待服务器返回}
+	   } 
+  
+  
+  
  public void send(String string,InetAddress address,int port ){
      String outString =string;
      
@@ -71,7 +89,12 @@ public class ChatClient implements java.io.Serializable{
 	} if (dp.getPort()==4000) {
 		  list=getlist(dp.getData());
 		  return "";
-	}    
+	} if (dp.getLength()>998) {
+		
+		 FileSave fileSave=new FileSave();
+        fileSave.writeData(dp.getData());
+		return "";
+	} 
     String s1 = "\n"+new String(dp.getData(),0,dp.getLength())+"(recieved from "+ dp.getAddress() + ", " + dp.getPort() + 
                  ")";
           ahosAddress=dp.getAddress();

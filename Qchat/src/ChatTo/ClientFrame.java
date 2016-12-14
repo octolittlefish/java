@@ -1,9 +1,12 @@
 package ChatTo;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import com.sun.tracing.dtrace.ArgsAttributes;
 
 /**
  *
@@ -19,7 +22,7 @@ public class ClientFrame extends javax.swing.JFrame {
 		un = username;
 		java_thread();
 		chatClient.connect(un);
-		
+
 		initComponents();
 		/*System.err.println(port+" "+iAddress+" "+user);*/
 	}
@@ -32,10 +35,11 @@ public class ClientFrame extends javax.swing.JFrame {
 	//GEN-BEGIN:initComponents
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
 	private void initComponents() {
-        
+
 		textField1 = new java.awt.TextField();
 		textArea1 = new java.awt.TextArea();
 		button1 = new java.awt.Button();
+		button2 = new java.awt.Button();
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
 		jMenuItem2 = new javax.swing.JMenuItem();
@@ -49,6 +53,13 @@ public class ClientFrame extends javax.swing.JFrame {
 		button1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				button1ActionPerformed(evt);
+			}
+		});
+
+		button2.setLabel("\u53d1\u9001\u6587\u4ef6");
+		button2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				button2ActionPerformed(evt);
 			}
 		});
 
@@ -126,6 +137,13 @@ public class ClientFrame extends javax.swing.JFrame {
 														javax.swing.GroupLayout.Alignment.TRAILING,
 														layout.createSequentialGroup()
 																.addComponent(
+																		button2,
+																		javax.swing.GroupLayout.PREFERRED_SIZE,
+																		javax.swing.GroupLayout.DEFAULT_SIZE,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addGap(44, 44,
+																		44)
+																.addComponent(
 																		button1,
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -149,29 +167,56 @@ public class ClientFrame extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(button1,
-										javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGroup(
+										layout.createParallelGroup(
+												javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(
+														button1,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(
+														button2,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(
 										javax.swing.GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)));
-		button1.setLabel(un+":");
 
+		button1.setLabel(un);
 		pack();
+		
 	}// </editor-fold>
 	//GEN-END:initComponents
 
-	
+	private void button2ActionPerformed(java.awt.event.ActionEvent evt) {
+		FileChooser fileChooser=new FileChooser();
+		byte array[]=null;
+		array=fileChooser.getFile();
+		chatClient.sendFile(array, idAddress, iport);
+		
+		/*ByteArrayInputStream ba=new ByteArrayInputStream(array);
+		int a=array.length;
+		byte b[]=null;
+		b=new byte[a];
+		try {
+			while (ba.read(b)!=-1) {
+				chatClient.sendFile(b, idAddress, iport);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+	}
 
-	private void jMenu1MousePressed(java.awt.event.MouseEvent evt)  {
+	private void jMenu1MousePressed(java.awt.event.MouseEvent evt) {
 		chatClient.connect("displaylist");
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		list=chatClient.getList();
+		list = chatClient.getList();
 		int i = list.size();
 		System.err.println(i);
 		if (i > 0) {
@@ -180,7 +225,7 @@ public class ClientFrame extends javax.swing.JFrame {
 			i--;
 		}
 		if (i > 0) {
-			User user =list.get(1);
+			User user = list.get(1);
 			jMenuItem3.setText(user.getUsername());
 			i--;
 		}
@@ -195,25 +240,32 @@ public class ClientFrame extends javax.swing.JFrame {
 			i--;
 		}
 	}
+
 	private void jMenuItem3Performed(java.awt.event.ActionEvent evt) {
 		User user = list.get(1);
-		 idAddress = user.getAddress();
-		 iport =user.getPort();
-	}private void jMenuItem4Performed(java.awt.event.ActionEvent evt) {
-		User user = list.get(3);
-		 idAddress = user.getAddress();
-		 iport =user.getPort();
-	}private void jMenuItem2Performed(java.awt.event.ActionEvent evt) {
-		User user = list.get(0);
-		 idAddress = user.getAddress();
-		 System.out.println(123);
-		 iport =user.getPort();
-	}private void jMenuItem1Performed(java.awt.event.ActionEvent evt) {
-		 User user = list.get(2);
-		 idAddress = user.getAddress();
-		 iport =user.getPort();
+		idAddress = user.getAddress();
+		iport = user.getPort();
 	}
-	
+
+	private void jMenuItem4Performed(java.awt.event.ActionEvent evt) {
+		User user = list.get(3);
+		idAddress = user.getAddress();
+		iport = user.getPort();
+	}
+
+	private void jMenuItem2Performed(java.awt.event.ActionEvent evt) {
+		User user = list.get(0);
+		idAddress = user.getAddress();
+		System.out.println(123);
+		iport = user.getPort();
+	}
+
+	private void jMenuItem1Performed(java.awt.event.ActionEvent evt) {
+		User user = list.get(2);
+		idAddress = user.getAddress();
+		iport = user.getPort();
+	}
+
 	private void button1ActionPerformed(java.awt.event.ActionEvent evt) {
 		String string = textField1.getText();
 		chatClient.send(string, idAddress, iport);
@@ -244,13 +296,14 @@ public class ClientFrame extends javax.swing.JFrame {
 		});
 		t.start();
 	}
-
+    
 	/**
 	 * @param args the command line arguments
 	 */
 	//GEN-BEGIN:variables
 	// Variables declaration - do not modify
 	private java.awt.Button button1;
+	private java.awt.Button button2;
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JMenuItem jMenuItem1;
