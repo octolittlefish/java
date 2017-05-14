@@ -330,7 +330,7 @@ public class xiugai extends javax.swing.JFrame {
 		String s4 = textField4.getText();
 		String s5 = textField5.getText();
 		String s6 = textField6.getText();
-		int i = connectMysql.Insert(s1, s2, s3, s4, s5, s6);
+		int i = connectMysql.changeit(s1, s2, s3, s4, s5, s6);
 		if (i == 1) {
 			JOptionPane.showMessageDialog(null, "修改成功");
 			textField1.setText("");

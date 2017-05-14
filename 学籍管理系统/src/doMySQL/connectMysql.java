@@ -40,8 +40,8 @@ import java.util.List;
 	           if(conn==null){
 	        	   new connectMysql();
 	             }
-	    String sql = "select *  from stu where name='" + name
-			                 + "' and sno='" + password+"'" ;
+	    String sql = "select *  from admin where name='" + name
+			                 + "' and password='" + password+"'" ;
 	try {
 	      stmt = conn.createStatement();
 	} catch (SQLException e2) {
@@ -119,7 +119,7 @@ import java.util.List;
 
 public static String[] selectInfo(String s) {
 	String string[]=new String[6];
-	String sql = "select sno,name,sex,date,tel,identify from stu where sno = '"+s+"'";
+	String sql = "select sno,name,sex,date,tel,class from stu where sno = '"+s+"'";
 	ResultSet rs =  connectMysql.executeQuery(sql);
 	try {
 		while (rs.next()) {
@@ -128,7 +128,7 @@ public static String[] selectInfo(String s) {
 			string[2]=rs.getString("sex");
 			string[3]=rs.getString("date");
 			string[4]=rs.getString("tel");
-			string[5]=rs.getString("identify");
+			string[5]=rs.getString("class");
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -136,6 +136,27 @@ public static String[] selectInfo(String s) {
 	
 	return string;
 }
+
+public static String[] selectInfo2(String s) {
+	String string[]=new String[6];
+	String sql = "select sno,name,sex,date,tel,class from stu where name = '"+s+"'";
+	ResultSet rs =  connectMysql.executeQuery(sql);
+	try {
+		while (rs.next()) {
+			string[0]=rs.getString("sno");
+			string[1]=rs.getString("name");
+			string[2]=rs.getString("sex");
+			string[3]=rs.getString("date");
+			string[4]=rs.getString("tel");
+			string[5]=rs.getString("class");
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return string;
+}
+
 public static int changeit(String sno,String name,String sex,String date,String tel,String identify){
 	int i=0;
 	try{
@@ -157,7 +178,7 @@ public static int Insertgrade(String s1,String s2,String s3){
 	}
 	return i;
 }  
-public static List selectbookserch(String a) {
+public static List selectserch(String a) {
 	List list=new ArrayList();
 	String sql = "select sno,grad.cno,cname,shuxing,ccredit,grade from grad,course where grad.cno=course.cno AND sno='"+a+"'";
 	ResultSet s = connectMysql.executeQuery(sql);
@@ -178,6 +199,25 @@ public static List selectbookserch(String a) {
 	
 	return list;
 } 
+public static List selectteaserch() {
+	List list=new ArrayList();
+	String sql = "select tname,tcno,tage,ttel from teacher";
+	ResultSet s = connectMysql.executeQuery(sql);
+	try {
+		while (s.next()) {
+			teacherinfo teainfo=new teacherinfo();
+			teainfo.setTname1(s.getString("tname"));
+			teainfo.setTcno1(s.getString("tcno"));
+			teainfo.setTage1(s.getString("tage"));
+			teainfo.setTtel(s.getString("ttel"));
+			list.add(teainfo);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return list;
+}
 
 
        }

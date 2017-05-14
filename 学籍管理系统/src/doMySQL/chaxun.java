@@ -66,9 +66,14 @@ public class chaxun extends javax.swing.JFrame {
 
 		label5.setText("tel:");
 
-		label6.setText("identify:");
+		label6.setText("class\uff1a");
 
 		button2.setLabel("\u6839\u636e\u59d3\u540d\u67e5\u8be2");
+		button2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				button2ActionPerformed(evt);
+			}
+		});
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -324,17 +329,26 @@ public class chaxun extends javax.swing.JFrame {
 	}// </editor-fold>
 	//GEN-END:initComponents
 
-	
+	private void button2ActionPerformed(java.awt.event.ActionEvent evt) {
+		String s = textField8.getText();
+		String string1[] = connectMysql.selectInfo2(s);
+		textField2.setText(string1[0]);
+		textField3.setText(string1[1]);
+		textField4.setText(string1[2]);
+		textField5.setText(string1[3]);
+		textField6.setText(string1[4]);
+		textField7.setText(string1[5]);
+	}
 
 	private void button1ActionPerformed(java.awt.event.ActionEvent evt) {
-           String s= textField1.getText();
-           String string1[]=connectMysql.selectInfo(s);
-           textField2.setText(string1[0]);
-           textField3.setText(string1[1]);
-           textField4.setText(string1[2]);
-           textField5.setText(string1[3]);
-           textField6.setText(string1[4]);
-           textField7.setText(string1[5]);
+		String s = textField1.getText();
+		String string1[] = connectMysql.selectInfo(s);
+		textField2.setText(string1[0]);
+		textField3.setText(string1[1]);
+		textField4.setText(string1[2]);
+		textField5.setText(string1[3]);
+		textField6.setText(string1[4]);
+		textField7.setText(string1[5]);
 	}
 
 	/**

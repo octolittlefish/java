@@ -170,7 +170,7 @@
     </Component>
     <Component class="java.awt.Label" name="label6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="identify:"/>
+        <Property name="text" type="java.lang.String" value="class&#xff1a;"/>
       </Properties>
     </Component>
     <Component class="java.awt.TextField" name="textField8">
@@ -179,6 +179,9 @@
       <Properties>
         <Property name="label" type="java.lang.String" value="&#x6839;&#x636e;&#x59d3;&#x540d;&#x67e5;&#x8be2;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

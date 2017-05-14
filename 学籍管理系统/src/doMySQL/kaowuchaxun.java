@@ -45,6 +45,8 @@ public class kaowuchaxun extends javax.swing.JFrame {
 		label7 = new java.awt.Label();
 		label8 = new java.awt.Label();
 		textField2 = new java.awt.TextField();
+		textField3 = new java.awt.TextField();
+		label9 = new java.awt.Label();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setBackground(new java.awt.Color(255, 153, 153));
@@ -70,7 +72,15 @@ public class kaowuchaxun extends javax.swing.JFrame {
 
 		label7.setText("\u6210\u7ee9");
 
-		label8.setText("\u52a0\u6743\u5e73\u5747\u6210\u7ee9:");
+		label8.setText("\u6210\u7ee9\uff1a");
+
+		textField2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				textField2ActionPerformed(evt);
+			}
+		});
+
+		label9.setText("\u5373\u5c06\u88ab\u5f00\u9664\uff1f");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -136,7 +146,7 @@ public class kaowuchaxun extends javax.swing.JFrame {
 																		javax.swing.GroupLayout.PREFERRED_SIZE)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-																		19,
+																		25,
 																		Short.MAX_VALUE)
 																.addComponent(
 																		label6,
@@ -151,24 +161,34 @@ public class kaowuchaxun extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(55, Short.MAX_VALUE))
+								.addContainerGap(62, Short.MAX_VALUE))
 				.addComponent(scrollPane1,
-						javax.swing.GroupLayout.DEFAULT_SIZE, 480,
+						javax.swing.GroupLayout.DEFAULT_SIZE, 493,
 						Short.MAX_VALUE)
 				.addGroup(
 						layout.createSequentialGroup()
-								.addGap(201, 201, 201)
-								.addComponent(label8,
+								.addContainerGap()
+								.addComponent(label9,
 										javax.swing.GroupLayout.PREFERRED_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(textField2,
+								.addComponent(textField3,
 										javax.swing.GroupLayout.PREFERRED_SIZE,
-										59,
+										117,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(131, Short.MAX_VALUE)));
+								.addGap(21, 21, 21)
+								.addComponent(label8,
+										javax.swing.GroupLayout.PREFERRED_SIZE,
+										27,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(
+										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(textField2,
+										javax.swing.GroupLayout.DEFAULT_SIZE,
+										176, Short.MAX_VALUE)
+								.addGap(46, 46, 46)));
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(
@@ -244,12 +264,22 @@ public class kaowuchaxun extends javax.swing.JFrame {
 										layout.createParallelGroup(
 												javax.swing.GroupLayout.Alignment.TRAILING)
 												.addComponent(
-														label8,
+														label9,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(
+														textField3,
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addComponent(
 														textField2,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(
+														label8,
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,21 +289,46 @@ public class kaowuchaxun extends javax.swing.JFrame {
 	}// </editor-fold>
 	//GEN-END:initComponents
 
+	private void textField2ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+	}
+
 	private void button1ActionPerformed(java.awt.event.ActionEvent evt) {
 		String s1 = textField1.getText();
-		Object[][] results = getselect(connectMysql.selectbookserch(s1));
+		Object[][] results = getselect(connectMysql.selectserch(s1));
 
 		/*scrollPane.setPreferredSize(new Dimension(450, 250));*/
 		String[] title = { "学号", "课程号", "课程名", "课程属性", "学分", "分数" };
 		JTable table_1 = new JTable(results, title);
 		scrollPane1.add(table_1);
-		int a=0;int sum=0;
+		int a = 0;
+		int sum = 0;
+		int sumb = 0;
+		int ab = 0;
+		int gua = 0;
 		for (int i = 0; i < results.length; i++) {
-			int b=Integer.parseInt(String.valueOf(results[i][4]));
-			int c=Integer.parseInt(String.valueOf(results[i][5]));
-			a+=b*c;sum+=b;	
-		}String s2=(a/sum)+"";
-		textField2.setText(s2);
+			int b = Integer.parseInt(String.valueOf(results[i][4]));
+			int c = Integer.parseInt(String.valueOf(results[i][5]));
+			a += b * c;
+			sum += b;
+			if (results[i][3].equals("必修")) {
+				sumb = sumb + b;
+				ab = ab + b * c;
+				if (c > 60) {
+					gua += b;
+				}
+			}
+		}
+		String s2 = (a / sum) + "";
+		String s3 = (ab / sumb) + "";
+		String gString;
+		if (gua + 12 <= sumb) {
+			gString = "是的,你快被开除了";
+		} else {
+			gString = "否,You Safe";
+		}
+		textField2.setText("全部平均分: " + s2 + "  必修平均分:" + s3);
+		textField3.setText(gString);
 	}
 
 	/**
@@ -313,9 +368,11 @@ public class kaowuchaxun extends javax.swing.JFrame {
 	private java.awt.Label label6;
 	private java.awt.Label label7;
 	private java.awt.Label label8;
+	private java.awt.Label label9;
 	private java.awt.ScrollPane scrollPane1;
 	private java.awt.TextField textField1;
 	private java.awt.TextField textField2;
+	private java.awt.TextField textField3;
 	// End of variables declaration//GEN-END:variables
 
 }

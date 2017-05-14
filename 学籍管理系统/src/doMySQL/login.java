@@ -180,7 +180,8 @@ public class login extends javax.swing.JFrame {
 	}
 
 	private void button2ActionPerformed(java.awt.event.ActionEvent evt) {
-		// TODO add your handling code here:
+		textField1.setText(" ");
+		textField2.setText(" ");
 	}
 
 	private void button1ActionPerformed(java.awt.event.ActionEvent evt) {

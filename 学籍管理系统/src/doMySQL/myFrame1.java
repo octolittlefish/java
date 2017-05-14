@@ -43,6 +43,8 @@ public class myFrame1 extends javax.swing.JFrame {
 		jMenu2 = new javax.swing.JMenu();
 		jMenuItem4 = new javax.swing.JMenuItem();
 		jMenuItem5 = new javax.swing.JMenuItem();
+		jMenu4 = new javax.swing.JMenu();
+		jMenuItem6 = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +116,18 @@ public class myFrame1 extends javax.swing.JFrame {
 
 		jMenuBar1.add(jMenu2);
 
+		jMenu4.setText("\u4efb\u8bfe\u67e5\u8be2");
+
+		jMenuItem6.setText("\u67e5\u8be2");
+		jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItem6ActionPerformed(evt);
+			}
+		});
+		jMenu4.add(jMenuItem6);
+
+		jMenuBar1.add(jMenu4);
+
 		setJMenuBar(jMenuBar1);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
@@ -127,10 +141,14 @@ public class myFrame1 extends javax.swing.JFrame {
 				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
 				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
 				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		pack();
 	}// </editor-fold>
 	//GEN-END:initComponents
+
+	private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
+		new teacher().setVisible(true);
+	}
 
 	private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
 		new kaowuchaxun().setVisible(true);
@@ -169,6 +187,7 @@ public class myFrame1 extends javax.swing.JFrame {
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
 	private javax.swing.JMenu jMenu3;
+	private javax.swing.JMenu jMenu4;
 	private javax.swing.JMenu jMenu6;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JMenuItem jMenuItem1;
@@ -176,6 +195,7 @@ public class myFrame1 extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jMenuItem3;
 	private javax.swing.JMenuItem jMenuItem4;
 	private javax.swing.JMenuItem jMenuItem5;
+	private javax.swing.JMenuItem jMenuItem6;
 	private javax.swing.JPanel jPanel1;
 	// End of variables declaration//GEN-END:variables
 
